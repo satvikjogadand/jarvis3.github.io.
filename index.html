@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satvik Jogadand | J.A.R.V.I.S. AI Portfolio</title>
+    <title>Satvik Jogadand | Insurance & Risk Management Professional</title>
+    <meta name="description" content="Professional portfolio of Satvik Jogadand, specializing in Insurance and Risk Management">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --jarvis-blue: #00f2ff;
-            --jarvis-dark: #0a0a1a;
-            --jarvis-glass: rgba(10, 10, 26, 0.7);
-            --jarvis-accent: #ff4d4d;
+            --primary-color: #00f2ff;
+            --dark-bg: #0a0a1a;
+            --glass-effect: rgba(10, 10, 26, 0.7);
+            --accent-color: #ff4d4d;
             --text-primary: rgba(255,255,255,0.9);
             --text-secondary: rgba(255,255,255,0.6);
             --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -25,35 +26,49 @@
         @font-face {
             font-family: 'Neon';
             src: url('https://assets.codepen.io/2585/Neon.ttf') format('truetype');
+            font-display: swap;
         }
         
         body {
             margin: 0;
             padding: 0;
-            background: var(--jarvis-dark);
+            background: var(--dark-bg);
             color: var(--text-primary);
             font-family: 'Segoe UI', system-ui, sans-serif;
             overflow-x: hidden;
+            line-height: 1.6;
             background-image: 
                 radial-gradient(circle at 25% 25%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 75% 75%, rgba(255,77,77,0.05) 0%, transparent 50%);
         }
         
-        /* 3D Perspective Container */
-        .perspective-container {
-            perspective: 1000px;
-            min-height: 100vh;
-            overflow-x: hidden;
+        /* Accessibility improvements */
+        a:focus, button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
         
-        /* Main Content Wrapper */
-        .content-wrapper {
-            transform-style: preserve-3d;
-            transition: var(--transition);
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
         
-        /* Holographic Header */
-        .holographic-header {
+        /* Main layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
@@ -76,11 +91,10 @@
             text-decoration: none;
             letter-spacing: 2px;
             font-family: 'Neon', sans-serif;
-            text-shadow: 0 0 10px var(--jarvis-blue);
         }
         
         .logo span {
-            color: var(--jarvis-blue);
+            color: var(--primary-color);
         }
         
         .nav-links {
@@ -109,20 +123,22 @@
             left: 0;
             width: 0;
             height: 1px;
-            background-color: var(--jarvis-blue);
+            background-color: var(--primary-color);
             transition: var(--transition);
         }
         
-        .nav-links a:hover {
-            color: var(--jarvis-blue);
+        .nav-links a:hover,
+        .nav-links a:focus {
+            color: var(--primary-color);
         }
         
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
             width: 100%;
         }
         
-        /* Hero Section with Parallax */
-        .hero-section {
+        /* Hero Section */
+        .hero {
             height: 100vh;
             display: flex;
             align-items: center;
@@ -134,7 +150,6 @@
         .hero-content {
             max-width: 600px;
             z-index: 2;
-            transform: translateZ(50px);
         }
         
         .hero-title {
@@ -142,7 +157,7 @@
             margin-bottom: 20px;
             font-weight: 300;
             line-height: 1.2;
-            background: linear-gradient(to right, #fff, var(--jarvis-blue));
+            background: linear-gradient(to right, #fff, var(--primary-color));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -155,28 +170,30 @@
             max-width: 500px;
         }
         
-        .hero-divider {
+        .divider {
             width: 80px;
             height: 2px;
-            background: linear-gradient(to right, var(--jarvis-blue), transparent);
+            background: linear-gradient(to right, var(--primary-color), transparent);
             margin: 30px 0;
         }
         
-        .hero-cta {
+        .btn {
             display: inline-flex;
             align-items: center;
             padding: 12px 30px;
-            border: 1px solid var(--jarvis-blue);
-            color: var(--jarvis-blue);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
             text-decoration: none;
             font-size: 14px;
             letter-spacing: 1px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            background: transparent;
+            cursor: pointer;
         }
         
-        .hero-cta::before {
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -187,16 +204,18 @@
             transition: var(--transition);
         }
         
-        .hero-cta:hover {
+        .btn:hover,
+        .btn:focus {
             background-color: rgba(0, 242, 255, 0.1);
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
         }
         
-        .hero-cta:hover::before {
+        .btn:hover::before,
+        .btn:focus::before {
             left: 100%;
         }
         
-        /* Floating Particles Background */
+        /* Particles Background */
         .particles {
             position: absolute;
             top: 0;
@@ -209,7 +228,7 @@
         
         .particle {
             position: absolute;
-            background: var(--jarvis-blue);
+            background: var(--primary-color);
             border-radius: 50%;
             opacity: 0.5;
             animation: float linear infinite;
@@ -220,11 +239,10 @@
             100% { transform: translateY(-100vh) rotate(360deg); }
         }
         
-        /* 3D Card Sections */
+        /* Sections */
         .section {
-            padding: 120px 10%;
+            padding: 120px 0;
             position: relative;
-            transform-style: preserve-3d;
         }
         
         .section-title {
@@ -239,35 +257,27 @@
             color: var(--text-primary);
         }
         
-        .section-title .title-divider {
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(to right, var(--jarvis-blue), transparent);
-            margin: 20px 0;
-        }
-        
-        /* About Section with 3D Flip Card */
+        /* About Section */
         .about-container {
             display: flex;
             gap: 40px;
             align-items: center;
         }
         
-        .about-card {
+        .card {
             flex: 1;
             min-height: 400px;
-            background: var(--jarvis-glass);
+            background: var(--glass-effect);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(0, 242, 255, 0.2);
             padding: 40px;
             transition: var(--transition);
-            transform-style: preserve-3d;
             position: relative;
             overflow: hidden;
         }
         
-        .about-card::before {
+        .card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -307,7 +317,7 @@
             background: rgba(0, 242, 255, 0.1);
             border: 1px solid rgba(0, 242, 255, 0.2);
             font-size: 14px;
-            color: var(--jarvis-blue);
+            color: var(--primary-color);
             border-radius: 20px;
             transition: var(--transition);
         }
@@ -332,7 +342,7 @@
             left: 50%;
             width: 2px;
             height: 100%;
-            background: linear-gradient(to bottom, transparent 0%, var(--jarvis-blue) 10%, var(--jarvis-blue) 90%, transparent 100%);
+            background: linear-gradient(to bottom, transparent 0%, var(--primary-color) 10%, var(--primary-color) 90%, transparent 100%);
             transform: translateX(-50%);
         }
         
@@ -352,7 +362,7 @@
         }
         
         .timeline-content {
-            background: var(--jarvis-glass);
+            background: var(--glass-effect);
             backdrop-filter: blur(10px);
             border-radius: 10px;
             border: 1px solid rgba(0, 242, 255, 0.2);
@@ -375,7 +385,7 @@
         }
         
         .timeline-date {
-            color: var(--jarvis-blue);
+            color: var(--primary-color);
             font-size: 14px;
             margin-bottom: 10px;
         }
@@ -397,20 +407,73 @@
             left: 50%;
             width: 16px;
             height: 16px;
-            background: var(--jarvis-dark);
-            border: 2px solid var(--jarvis-blue);
+            background: var(--dark-bg);
+            border: 2px solid var(--primary-color);
             border-radius: 50%;
             transform: translateX(-50%);
             z-index: 1;
         }
         
-        /* J.A.R.V.I.S. AI Assistant */
-        .jarvis-assistant {
+        /* Contact Section */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 242, 255, 0.1);
+            border-radius: 50%;
+            color: var(--primary-color);
+        }
+        
+        .contact-item h4 {
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+        
+        .contact-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Voice Wave Animation */
+        .voice-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            margin: 30px 0;
+        }
+        
+        .wave-bar {
+            width: 4px;
+            height: 20px;
+            background: var(--primary-color);
+            margin: 0 2px;
+            border-radius: 2px;
+            animation: wave 1.5s infinite ease-in-out;
+        }
+        
+        @keyframes wave {
+            0%, 100% { height: 5px; }
+            50% { height: 20px; }
+        }
+        
+        /* Chat Assistant */
+        .chat-assistant {
             position: fixed;
             bottom: 30px;
             right: 30px;
             width: 300px;
-            background: var(--jarvis-glass);
+            background: var(--glass-effect);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             border: 1px solid rgba(0, 242, 255, 0.2);
@@ -422,12 +485,12 @@
             transition: var(--transition);
         }
         
-        .jarvis-assistant.active {
+        .chat-assistant.active {
             transform: translateY(0);
             opacity: 1;
         }
         
-        .jarvis-header {
+        .chat-header {
             padding: 15px 20px;
             background: rgba(0, 242, 255, 0.1);
             border-bottom: 1px solid rgba(0, 242, 255, 0.2);
@@ -435,7 +498,7 @@
             align-items: center;
         }
         
-        .jarvis-status {
+        .chat-status {
             width: 10px;
             height: 10px;
             background: #00ff00;
@@ -450,39 +513,43 @@
             100% { opacity: 1; }
         }
         
-        .jarvis-title {
+        .chat-title {
             font-size: 14px;
-            color: var(--jarvis-blue);
+            color: var(--primary-color);
             letter-spacing: 1px;
         }
         
-        .jarvis-close {
+        .chat-close {
             margin-left: auto;
             color: var(--text-secondary);
             cursor: pointer;
             transition: var(--transition);
+            background: none;
+            border: none;
+            color: inherit;
         }
         
-        .jarvis-close:hover {
-            color: var(--jarvis-blue);
+        .chat-close:hover,
+        .chat-close:focus {
+            color: var(--primary-color);
         }
         
-        .jarvis-messages {
+        .chat-messages {
             height: 200px;
             padding: 20px;
             overflow-y: auto;
         }
         
-        .jarvis-message {
+        .chat-message {
             margin-bottom: 15px;
             display: flex;
         }
         
-        .jarvis-message.ai {
+        .chat-message.ai {
             justify-content: flex-start;
         }
         
-        .jarvis-message.user {
+        .chat-message.user {
             justify-content: flex-end;
         }
         
@@ -508,13 +575,13 @@
             border-top-right-radius: 0;
         }
         
-        .jarvis-input {
+        .chat-input {
             display: flex;
             padding: 15px;
             border-top: 1px solid rgba(0, 242, 255, 0.1);
         }
         
-        .jarvis-input input {
+        .chat-input input {
             flex: 1;
             padding: 10px 15px;
             background: rgba(0, 0, 0, 0.2);
@@ -523,50 +590,32 @@
             color: var(--text-primary);
             outline: none;
             transition: var(--transition);
+            font-family: inherit;
         }
         
-        .jarvis-input input:focus {
-            border-color: var(--jarvis-blue);
+        .chat-input input:focus {
+            border-color: var(--primary-color);
             box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
         }
         
-        .jarvis-input button {
+        .chat-input button {
             margin-left: 10px;
             padding: 10px 15px;
             background: rgba(0, 242, 255, 0.2);
-            border: 1px solid var(--jarvis-blue);
-            color: var(--jarvis-blue);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
             border-radius: 20px;
             cursor: pointer;
             transition: var(--transition);
-        }
-        
-        .jarvis-input button:hover {
-            background: var(--jarvis-blue);
-            color: var(--jarvis-dark);
-        }
-        
-        /* Voice Wave Animation */
-        .voice-wave {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 40px;
-            margin: 10px 0;
         }
         
-        .wave-bar {
-            width: 4px;
-            height: 20px;
-            background: var(--jarvis-blue);
-            margin: 0 2px;
-            border-radius: 2px;
-            animation: wave 1.5s infinite ease-in-out;
-        }
-        
-        @keyframes wave {
-            0%, 100% { height: 5px; }
-            50% { height: 20px; }
+        .chat-input button:hover,
+        .chat-input button:focus {
+            background: var(--primary-color);
+            color: var(--dark-bg);
         }
         
         /* Responsive Design */
@@ -590,7 +639,7 @@
                 left: 23px;
             }
             
-            .jarvis-assistant {
+            .chat-assistant {
                 width: calc(100% - 40px);
                 left: 20px;
                 right: 20px;
@@ -599,7 +648,7 @@
         }
         
         @media (max-width: 768px) {
-            .holographic-header {
+            .header {
                 padding: 15px 20px;
             }
             
@@ -607,7 +656,7 @@
                 display: none;
             }
             
-            .hero-section {
+            .hero {
                 padding: 0 20px;
                 padding-top: 100px;
                 height: auto;
@@ -615,344 +664,355 @@
             }
             
             .section {
-                padding: 80px 20px;
+                padding: 80px 0;
+            }
+            
+            .card {
+                padding: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="perspective-container">
-        <div class="content-wrapper" id="contentWrapper">
-            <!-- Holographic Header -->
-            <header class="holographic-header">
-                <a href="#" class="logo">J.A.R.V.I.S.<span>//SATVIK_JOGADAND</span></a>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </header>
-            
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <div class="particles" id="particles"></div>
-                <div class="hero-content">
-                    <h1 class="hero-title">Strategic <span>Risk Management</span> & Insurance Solutions</h1>
-                    <div class="hero-divider"></div>
-                    <p class="hero-subtitle">PPO @ Bajaj Allianz | PGDM '25 – Insurance & Risk Management | IRM Level 1 | National Insurance Academy</p>
-                    <a href="#contact" class="hero-cta">Engage Protocol</a>
-                </div>
-            </section>
-            
-            <!-- About Section -->
-            <section class="section" id="about">
-                <div class="section-title">
-                    <h2>System Overview</h2>
-                    <div class="title-divider"></div>
-                </div>
-                
-                <div class="about-container">
-                    <div class="about-card">
-                        <div class="about-text">
-                            <p>Hello, I'm Satvik Jogadand. As a specialist in Insurance and Risk Management, I architect financial security frameworks with the precision of advanced AI and the reliability of Swiss engineering.</p>
-                            <p>My expertise lies in identifying vulnerabilities, quantifying exposures, and designing protection strategies that withstand even the most unpredictable market forces.</p>
-                            
-                            <div style="margin-top: 40px;">
-                                <h3 style="margin-bottom: 20px; font-weight: 300; color: var(--text-primary);">Core Modules</h3>
-                                <div class="skills-container">
-                                    <div class="skill-tag">Risk Assessment</div>
-                                    <div class="skill-tag">Strategic Planning</div>
-                                    <div class="skill-tag">Financial Analysis</div>
-                                    <div class="skill-tag">Leadership</div>
-                                    <div class="skill-tag">Problem Solving</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Experience Section -->
-            <section class="section" id="experience" style="background: radial-gradient(circle at center, rgba(0, 242, 255, 0.03) 0%, transparent 50%);">
-                <div class="section-title">
-                    <h2>Operational History</h2>
-                    <div class="title-divider"></div>
-                </div>
-                
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">May 2024 - July 2024</div>
-                            <h3 class="timeline-title">Bajaj Allianz General Insurance</h3>
-                            <p class="timeline-desc">Developed comprehensive risk assessment frameworks and insurance solutions during my internship with this industry leader.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">Nov 2019 - Mar 2020</div>
-                            <h3 class="timeline-title">The Climate Reality Project</h3>
-                            <p class="timeline-desc">Contributed to climate change awareness initiatives, developing skills in project coordination and public engagement.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-date">Apr 2019 - May 2019</div>
-                            <h3 class="timeline-title">UltraTech Cement</h3>
-                            <p class="timeline-desc">Analyzed operational processes and efficiency metrics in an industrial manufacturing environment.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Skills Section -->
-            <section class="section" id="skills">
-                <div class="section-title">
-                    <h2>Certifications & Education</h2>
-                    <div class="title-divider"></div>
-                </div>
-                
-                <div class="about-container">
-                    <div class="about-card">
-                        <div class="about-text">
-                            <h3 style="margin-bottom: 20px; font-weight: 300; color: var(--text-primary);">Education Matrix</h3>
-                            <div style="margin-bottom: 30px;">
-                                <h4 style="color: var(--jarvis-blue); margin-bottom: 5px;">National Insurance Academy</h4>
-                                <p style="color: var(--text-secondary);">PGDM, Insurance and Risk Management · (July 2023 - March 2025)</p>
-                            </div>
-                            <div style="margin-bottom: 30px;">
-                                <h4 style="color: var(--jarvis-blue); margin-bottom: 5px;">Institute of Risk Management</h4>
-                                <p style="color: var(--text-secondary);">Level-1 Certification · (March 2025)</p>
-                            </div>
-                            <div style="margin-bottom: 30px;">
-                                <h4 style="color: var(--jarvis-blue); margin-bottom: 5px;">Symbiosis Centre for Management Studies</h4>
-                                <p style="color: var(--text-secondary);">BBA, HR & Finance · (2018 - 2021)</p>
-                            </div>
-                            
-                            <h3 style="margin-bottom: 20px; font-weight: 300; color: var(--text-primary);">Certified Modules</h3>
-                            <div class="skills-container">
-                                <div class="skill-tag">Managing Employee Performance</div>
-                                <div class="skill-tag">AI For Everyone</div>
-                                <div class="skill-tag">Lean Manufacturing</div>
-                                <div class="skill-tag">Life Insurance</div>
-                                <div class="skill-tag">Digital Accessibility</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Contact Section -->
-            <section class="section" id="contact" style="background: radial-gradient(circle at center, rgba(255, 77, 77, 0.03) 0%, transparent 50%);">
-                <div class="section-title">
-                    <h2>Initiate Connection</h2>
-                    <div class="title-divider"></div>
-                </div>
-                
-                <div class="about-container">
-                    <div class="about-card">
-                        <div class="about-text">
-                            <div style="margin-bottom: 30px;">
-                                <div class="contact-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Direct Line</h4>
-                                        <p>+91 6261414868</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-bottom: 30px;">
-                                <div class="contact-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Secure Communication</h4>
-                                        <p>satvikjogadand@gmail.com</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-bottom: 30px;">
-                                <div class="contact-item">
-                                    <div class="contact-icon">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </div>
-                                    <div>
-                                        <h4>Professional Network</h4>
-                                        <p>linkedin.com/in/satvikjogadand</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="voice-wave">
-                                <div class="wave-bar" style="animation-delay: 0.1s"></div>
-                                <div class="wave-bar" style="animation-delay: 0.3s"></div>
-                                <div class="wave-bar" style="animation-delay: 0.5s"></div>
-                                <div class="wave-bar" style="animation-delay: 0.2s"></div>
-                                <div class="wave-bar" style="animation-delay: 0.4s"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo">SATVIK_JOGADAND<span>//PORTFOLIO</span></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
     
-    <!-- J.A.R.V.I.S. AI Assistant -->
-    <div class="jarvis-assistant" id="jarvisAssistant">
-        <div class="jarvis-header">
-            <div class="jarvis-status"></div>
-            <div class="jarvis-title">J.A.R.V.I.S. AI ASSISTANT</div>
-            <div class="jarvis-close" id="jarvisClose"><i class="fas fa-times"></i></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Strategic <span>Risk Management</span> & Insurance Solutions</h1>
+                <div class="divider"></div>
+                <p class="hero-subtitle">PPO @ Bajaj Allianz | PGDM '25 – Insurance & Risk Management | IRM Level 1 | National Insurance Academy</p>
+                <a href="#contact" class="btn">Contact Me</a>
+            </div>
         </div>
-        <div class="jarvis-messages" id="jarvisMessages">
-            <div class="jarvis-message ai">
-                <div class="message-content">
-                    Hello, I'm J.A.R.V.I.S. How may I assist you today?
+    </section>
+    
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Profile</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="about-container">
+                <div class="card">
+                    <div class="about-text">
+                        <p>Hello, I'm Satvik Jogadand. As a specialist in Insurance and Risk Management, I develop comprehensive financial security frameworks with precision and strategic insight.</p>
+                        <p>My expertise lies in identifying vulnerabilities, quantifying exposures, and designing protection strategies that withstand unpredictable market forces while optimizing coverage and cost-efficiency.</p>
+                        
+                        <div style="margin-top: 40px;">
+                            <h3 style="margin-bottom: 20px; font-weight: 300; color: var(--text-primary);">Core Competencies</h3>
+                            <div class="skills-container">
+                                <div class="skill-tag">Risk Assessment</div>
+                                <div class="skill-tag">Strategic Planning</div>
+                                <div class="skill-tag">Financial Analysis</div>
+                                <div class="skill-tag">Leadership</div>
+                                <div class="skill-tag">Problem Solving</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="jarvis-input">
-            <input type="text" id="jarvisInput" placeholder="Type your message...">
-            <button id="jarvisSend"><i class="fas fa-paper-plane"></i></button>
+    </section>
+    
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Experience</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 2024 - July 2024</div>
+                        <h3 class="timeline-title">Bajaj Allianz General Insurance</h3>
+                        <p class="timeline-desc">Developed comprehensive risk assessment frameworks and insurance solutions during my internship with this industry leader, gaining hands-on experience in underwriting and claims management.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Nov 2019 - Mar 2020</div>
+                        <h3 class="timeline-title">The Climate Reality Project</h3>
+                        <p class="timeline-desc">Contributed to climate change awareness initiatives, developing skills in project coordination, public engagement, and environmental risk assessment.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Apr 2019 - May 2019</div>
+                        <h3 class="timeline-title">UltraTech Cement</h3>
+                        <p class="timeline-desc">Analyzed operational processes and efficiency metrics in an industrial manufacturing environment, focusing on risk mitigation strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education & Certifications</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="about-container">
+                <div class="card">
+                    <div class="about-text">
+                        <h3 style="margin-bottom: 20px; font-weight: 300; color: var(--text-primary);">Education</h3>
+                        <div style="margin-bottom: 30px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 5px;">National Insurance Academy</h4>
+                            <p style="color: var(--text-secondary);">PGDM, Insurance and Risk Management · (July 2023 - March 2025)</p>
+                        </div>
+                        <div style="margin-bottom: 30px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 5px;">Institute of Risk Management</h4>
+                            <p style="color: var(--text-secondary);">Level-1 Certification · (March 2025)</p>
+                        </div>
+                        <div style="margin-bottom: 30px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 5px;">Symbiosis Centre for Management Studies</h4>
+                            <p style="color: var(--text-secondary);">BBA, HR & Finance · (2018 - 2021)</p>
+                        </div>
+                        
+                        <h3 style="margin-bottom: 20px; font-weight: 300; color: var(--text-primary);">Certifications</h3>
+                        <div class="skills-container">
+                            <div class="skill-tag">Managing Employee Performance</div>
+                            <div class="skill-tag">AI For Everyone</div>
+                            <div class="skill-tag">Lean Manufacturing</div>
+                            <div class="skill-tag">Life Insurance</div>
+                            <div class="skill-tag">Digital Accessibility</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Information</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="about-container">
+                <div class="card">
+                    <div class="about-text">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+91 6261414868</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>satvikjogadand@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p>linkedin.com/in/satvikjogadand</p>
+                            </div>
+                        </div>
+                        
+                        <div class="voice-wave" aria-hidden="true">
+                            <div class="wave-bar" style="animation-delay: 0.1s"></div>
+                            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+                            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+                            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+                            <div class="wave-bar" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Chat Assistant -->
+    <div class="chat-assistant" id="chatAssistant">
+        <div class="chat-header">
+            <div class="chat-status" aria-label="Online status"></div>
+            <div class="chat-title">ASSISTANT</div>
+            <button class="chat-close" id="chatClose" aria-label="Close chat"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message ai">
+                <div class="message-content">
+                    Hello, how can I help you today?
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." aria-label="Type your message">
+            <button id="chatSend" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
     
     <script>
         // Initialize Particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 30;
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
             
-            // Random properties
-            const size = Math.random() * 5 + 1;
-            const posX = Math.random() * 100;
-            const posY = Math.random() * 100 + 100; // Start below viewport
-            const opacity = Math.random() * 0.5 + 0.1;
-            const duration = Math.random() * 20 + 10;
-            const delay = Math.random() * 5;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100; // Start below viewport
+                const opacity = Math.random() * 0.5 + 0.1;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.opacity = opacity;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
             
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${posX}%`;
-            particle.style.top = `${posY}%`;
-            particle.style.opacity = opacity;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `${delay}s`;
+            // Chat Assistant
+            const chatAssistant = document.getElementById('chatAssistant');
+            const chatClose = document.getElementById('chatClose');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const chatSend = document.getElementById('chatSend');
             
-            particlesContainer.appendChild(particle);
-        }
-        
-        // 3D Perspective Effect
-        const contentWrapper = document.getElementById('contentWrapper');
-        
-        document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            contentWrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-        });
-        
-        // Reset position when mouse leaves
-        document.addEventListener('mouseleave', () => {
-            contentWrapper.style.transform = 'rotateY(0deg) rotateX(0deg)';
-        });
-        
-        // J.A.R.V.I.S. Assistant
-        const jarvisAssistant = document.getElementById('jarvisAssistant');
-        const jarvisClose = document.getElementById('jarvisClose');
-        const jarvisMessages = document.getElementById('jarvisMessages');
-        const jarvisInput = document.getElementById('jarvisInput');
-        const jarvisSend = document.getElementById('jarvisSend');
-        
-        // Sample responses
-        const responses = [
-            "Satvik is currently available for new opportunities in risk management.",
-            "The publication 'EFFECTS OF DEMONETIZATION ON PREPAID INSTRUMENT INDIA' is available upon request.",
-            "Satvik specializes in insurance and risk management strategies.",
-            "You can contact Satvik directly at +91 6261414868 or satvikjogadand@gmail.com",
-            "Satvik holds certifications in AI, Lean Manufacturing, and Digital Accessibility."
-        ];
-        
-        // Show assistant after delay
-        setTimeout(() => {
-            jarvisAssistant.classList.add('active');
-        }, 3000);
-        
-        // Close assistant
-        jarvisClose.addEventListener('click', () => {
-            jarvisAssistant.classList.remove('active');
-        });
-        
-        // Send message
-        function sendMessage() {
-            const message = jarvisInput.value.trim();
-            if (message) {
-                // Add user message
-                const userMessage = document.createElement('div');
-                userMessage.className = 'jarvis-message user';
-                userMessage.innerHTML = `<div class="message-content">${message}</div>`;
-                jarvisMessages.appendChild(userMessage);
-                
-                // Clear input
-                jarvisInput.value = '';
-                
-                // Scroll to bottom
-                jarvisMessages.scrollTop = jarvisMessages.scrollHeight;
-                
-                // Simulate typing
-                setTimeout(() => {
-                    const typing = document.createElement('div');
-                    typing.className = 'jarvis-message ai';
-                    typing.innerHTML = `<div class="message-content">Typing<span class="typing-cursor"></span></div>`;
-                    jarvisMessages.appendChild(typing);
-                    jarvisMessages.scrollTop = jarvisMessages.scrollHeight;
+            // Sample responses
+            const responses = [
+                "Satvik is currently available for new opportunities in risk management.",
+                "The publication 'EFFECTS OF DEMONETIZATION ON PREPAID INSTRUMENT INDIA' is available upon request.",
+                "Satvik specializes in insurance and risk management strategies.",
+                "You can contact Satvik directly at +91 6261414868 or satvikjogadand@gmail.com",
+                "Satvik holds certifications in AI, Lean Manufacturing, and Digital Accessibility."
+            ];
+            
+            // Show assistant after delay
+            setTimeout(() => {
+                chatAssistant.classList.add('active');
+            }, 3000);
+            
+            // Close assistant
+            chatClose.addEventListener('click', () => {
+                chatAssistant.classList.remove('active');
+            });
+            
+            // Send message
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'chat-message user';
+                    userMessage.innerHTML = `<div class="message-content">${message}</div>`;
+                    chatMessages.appendChild(userMessage);
                     
-                    // Send response after delay
+                    // Clear input
+                    chatInput.value = '';
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Simulate typing
                     setTimeout(() => {
-                        jarvisMessages.removeChild(typing);
+                        const typing = document.createElement('div');
+                        typing.className = 'chat-message ai';
+                        typing.innerHTML = `<div class="message-content">Typing<span class="typing-dots"></span></div>`;
+                        chatMessages.appendChild(typing);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
                         
-                        const response = responses[Math.floor(Math.random() * responses.length)];
-                        const aiMessage = document.createElement('div');
-                        aiMessage.className = 'jarvis-message ai';
-                        aiMessage.innerHTML = `<div class="message-content">${response}</div>`;
-                        jarvisMessages.appendChild(aiMessage);
-                        jarvisMessages.scrollTop = jarvisMessages.scrollHeight;
-                    }, 1500);
-                }, 500);
+                        // Send response after delay
+                        setTimeout(() => {
+                            chatMessages.removeChild(typing);
+                            
+                            const response = responses[Math.floor(Math.random() * responses.length)];
+                            const aiMessage = document.createElement('div');
+                            aiMessage.className = 'chat-message ai';
+                            aiMessage.innerHTML = `<div class="message-content">${response}</div>`;
+                            chatMessages.appendChild(aiMessage);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }, 1500);
+                    }, 500);
+                }
             }
-        }
-        
-        // Send on button click or enter
-        jarvisSend.addEventListener('click', sendMessage);
-        jarvisInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-        
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
+            
+            // Send on button click or enter
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
                 }
             });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.section, .about-card, .timeline-item').forEach(el => {
-            observer.observe(el);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Intersection Observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.section, .card, .timeline-item').forEach(el => {
+                observer.observe(el);
+            });
         });
     </script>
 </body>
